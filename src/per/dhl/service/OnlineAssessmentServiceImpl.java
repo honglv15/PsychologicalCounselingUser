@@ -34,4 +34,14 @@ public class OnlineAssessmentServiceImpl implements OnlineAssessmentService {
         session.close();
         return onlineAssessmentQos;
     }
+
+    @Override
+    public Integer SubmitReport(Integer userId, Integer score) {
+        SqlSession session = SqlSessionUtil.getSession();
+        OnlineAssessmentMapper mapper = session.getMapper(OnlineAssessmentMapper.class);
+        Integer integer = mapper.SubmitReport(userId, score);
+        session.commit();
+        session.close();
+        return integer;
+    }
 }

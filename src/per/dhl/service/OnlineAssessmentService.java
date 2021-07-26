@@ -12,4 +12,6 @@ import java.util.ArrayList;
  */
 public interface OnlineAssessmentService {
     ArrayList<OnlineAssessmentQo> GetAssessmentQuestions(Integer selectValue);
+
+    Integer SubmitReport(Integer userId, Integer score);
 }

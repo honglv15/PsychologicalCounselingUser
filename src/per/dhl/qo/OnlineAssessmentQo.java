@@ -2,7 +2,6 @@ package per.dhl.qo;
 
 import lombok.Data;
 import per.dhl.pojo.OptionInfo;
-
 import java.util.ArrayList;
 
 /**

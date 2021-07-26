@@ -11,7 +11,7 @@
 <body>
 <div class="panel panel-primary">
 
-    <div class="panel-heading" >
+    <div class="panel-heading" id="questionsPanelHead">
         <h1 style="text-align: center">在线评估</h1>
         <div>&nbsp;</div>
         <div>
@@ -31,14 +31,19 @@
         <div>&nbsp;</div>
     </div>
 
-    <div class="panel-heading" style="display: none">
+    <div class="panel-heading" id="questionsOnlinePanel" style="display: none">
         <h1 style="text-align: center">评估答题</h1>
         <div>&nbsp;</div>
     </div>
-    <div class="panel-body" style="display: none">
+    <div class="panel-body" id="questionsPanel" style="display: none">
         <div id="questionsManage">
+        </div>
+        <div></div>
 
-
+    </div>
+    <div class="panel-footer" id="questionsFooterPanel" style="display: none">
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" id="subBtn" style="width: 20%">提交</button>
         </div>
     </div>
 </div>

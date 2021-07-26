@@ -10,4 +10,6 @@ public interface OnlineAssessmentMapper {
     ArrayList<OnlineAssessmentQo> GetAssessmentQuestions(@Param("selectValue") Integer selectValue);
 
     ArrayList<OptionInfo> getOptionInfos(@Param("topicId") Integer topicId);
+
+    Integer SubmitReport(@Param("userId") Integer userId, @Param("score") Integer score);
 }
