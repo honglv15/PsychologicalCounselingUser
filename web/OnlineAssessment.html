@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<script src="3rd/layer/layer.js"></script>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>在线评估</title>
+</head>
+<body>
+<div class="panel panel-primary">
+
+    <div class="panel-heading" >
+        <h1 style="text-align: center">在线评估</h1>
+        <div>&nbsp;</div>
+        <div>
+            <span style="float: left; margin-left: 34%; font-size: 20px">领域:</span>
+            <span style="float: left" class="col-md-3">
+                <select class="form-control" id="FieldSelection">
+                    <option value="0">请选择</option>
+                    <option value="1">亲子关系</option>
+                    <option value="2">情绪管理</option>
+                    <option value="3">人际关系</option>
+                    <option value="4">抑郁障碍</option>
+                </select>
+            </span>
+            <button type="button" class="btn" id="StartEvaluation">开始评估</button>
+            <div>&nbsp;</div>
+        </div>
+        <div>&nbsp;</div>
+    </div>
+
+    <div class="panel-heading" style="display: none">
+        <h1 style="text-align: center">评估答题</h1>
+        <div>&nbsp;</div>
+    </div>
+    <div class="panel-body" style="display: none">
+        <div id="questionsManage">
+
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<script src="3rd/zui-1.9.2-dist/dist/lib/datetimepicker/datetimepicker.min.js"></script>
+<script src="js/OnlineAssessment.js"></script>
+</html>

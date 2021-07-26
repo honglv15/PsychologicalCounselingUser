@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/layer/layer.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/lib/datetimepicker/datetimepicker.min.css">
+
+<link rel="stylesheet" href="css/AppointmentList.css">
+
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>预约诊断</title>
+</head>
+<body>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="data-title-d" colspan="15" style="font-size: 25px;text-align: center"><b>预约列表</b>
+            <div class="col-md-1" style="float: right"><input type="button" id="AddUserBtn" class="btn btn-danger"
+                                                              value="我要预约"
+                                                              data-toggle="modal" data-target="#myModal"></div>
+        </div>
+    </div>
+    <table id="table" class="table table-hover table-bordered">
+        <thead>
+        <tr align="center" style="font-weight: bold;">
+            <td>预约时间</td>
+            <td>心理咨询师</td>
+            <td>领域</td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody class="mytable" id="mybody">
+
+        </tbody>
+    </table>
+</div>
+<ul class="pager" style="margin-left: 45%">
+    <li><a id="prePage" href="#" class="previous">上一页</a></li>
+    <li><span id="tablepage" class="previous">1/1</span></li>
+    <li><a id="nextPage" href="#" class="next">下一页</a></li>
+</ul>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h2 class="modal-title" style="text-align: center">我要预约</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row col-md-12">
+                    <div class="col-md-6">
+                        <div style="float: left; margin-top: 1%">咨询领域:</div>
+                        <div class="col-md-6" style="float: left">
+                            <select class="chosen-select form-control" id="fieldChoose" tabindex="2"
+                                    style="width: auto;">
+                                <option value="0">请选择</option>
+                                <option value="1">亲子关系</option>
+                                <option value="2">情绪管理</option>
+                                <option value="3">人际关系</option>
+                                <option value="4">抑郁障碍</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div style="float: left; margin-top: 1%">心理咨询师:</div>
+                        <div class="col-md-8">
+                            <select class="chosen-select form-control" id="consultChoose" tabindex="2">
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class=" col-md-6">
+                        <div class="divLeft">
+                            咨询师姓名:
+                        </div>
+                        <div class="divLeft" id="consultName">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class=" col-md-6">
+                        <div class="divLeft">
+                            毕业学校:
+                        </div>
+                        <div class="divLeft" id="Graduate">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class=" col-md-6">
+                        <div class="divLeft">
+                            职称:
+                        </div>
+                        <div class="divLeft" id="title">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class=" col-md-6">
+                        <div class="divLeft">
+                            擅长领域:
+                        </div>
+                        <div id="fields">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class=" col-md-6">
+                        <div class="divLeft">
+                            服务价格:
+                        </div>
+                        <div class="divLeft" id="money">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class=" col-md-6">
+                        <div class="divLeft">
+                            专业背景
+                        </div>
+                        <div id="backGround" class="divLeft">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="divLeft" style="margin-top: 3%">
+                        可约时间
+                    </div>
+                    <div class="divLeft">
+                        <input type="text" id="consultTime" class="form-control form-date" placeholder="可预约日期">
+                    </div>
+                    <div class="divLeft">
+                        <button class="btn btn-primary" id="QueryBtn" style="text-align: center" type="button">查询
+                        </button>
+                    </div>
+                </div>
+                <div class="row col-md-12" style="margin-top: 2%">
+                    <table class="table table-bordered ">
+                        <tbody id="myTbody">
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <p class="col-md-12 ">问题描述</p>
+                <textarea class="form-control" id="ProblemTxt"></textarea>
+
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button class="btn btn-primary" style="text-align: center" type="button" id="ComBtn">提交</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="DetailModal">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" style="text-align: center">预约详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">咨询人</span>
+                        <input type="text" id="advisoryD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">领域</span>
+                        <input type="text" id="fieldD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">预约时间</span>
+                        <input type="text" id="oTimeD" class="form-control" disabled>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">预约状态</span>
+                        <input type="text" id="ReservationStatusD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">费用</span>
+                        <input type="text" id="feeD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">咨询师</span>
+                        <input type="text" id="consultNameD" class="form-control" disabled>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>问题描述</div>
+                    <div><textarea class="form-control" id="problemD" style="resize: none" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>诊断答复:</div>
+                    <div><textarea id="replyD" class="form-control" style="resize: none" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="input-group col-md-5" style="float: left">
+                        <span class="input-group-addon">答复时间</span>
+                        <input type="text" id="replyTime" style="resize: none" class="form-control" disabled>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>评价内容:</div>
+                    <div><textarea id="contents" class="form-control" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="evaluateModal">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" style="text-align: center">咨询师评价</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">咨询师姓名</span>
+                        <input type="text" id="advisoryE" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-7" style="float: left">
+                        <span class="input-group-addon">擅长领域</span>
+                        <input type="text" id="fieldE" class="form-control" disabled>
+                    </div>
+
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">毕业学校</span>
+                        <input type="text" id="schoolE" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">职称</span>
+                        <input type="text" id="titleE" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-4" style="float: left">
+
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>专业背景:</div>
+                    <div><textarea class="form-control" id="BgE" style="resize: none" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>评价:</div>
+                    <div><textarea id="evaluate" class="form-control" style="resize: none"></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="evaluateBtn" class="btn btn-primary" data-dismiss="modal">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="viewConsultant">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" style="text-align: center">咨询师档案</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">咨询师姓名</span>
+                        <input type="text" id="consultNameV" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-7" style="float: left">
+                        <span class="input-group-addon">擅长领域</span>
+                        <input type="text" id="fieldV" class="form-control" disabled>
+                    </div>
+
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">毕业学校</span>
+                        <input type="text" id="schoolV" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">职称</span>
+                        <input type="text" id="titleV" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-4" style="float: left">
+
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>专业背景:</div>
+                    <div><textarea class="form-control" id="BgV" style="resize: none" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>简介:</div>
+                    <div><textarea id="consultIntroV" class="form-control" style="resize: none" disabled></textarea></div>
+                </div>
+                <div class="col-md-12" id="userEvaluate">
+                    <h3>评价:</h3>
+<!--                    <div><textarea id="" class="form-control" style="resize: none"></textarea></div>-->
+                </div>
+                <div>&nbsp;</div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+</body>
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<script src="3rd/zui-1.9.2-dist/dist/lib/datetimepicker/datetimepicker.min.js"></script>
+<script src="js/AppointmentList.js"></script>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.dhl.mapper.AppointmentListMapper">
+    <select id="getConsultInfo" resultType="per.dhl.qo.ConsultInfoQo">
+        SELECT *
+        FROM admin_info a
+        INNER JOIN consult_info b ON a.admin_id = b.admin_id
+        INNER JOIN consult_field_info c ON b.consult_id = c.confie_id
+        INNER JOIN field_info d ON c.field_id = d.field_id
+        INNER JOIN title_info e ON e.title_id = b.title_id
+        <where>
+            <if test="fieldId!=null and fieldId!=0">
+                d.field_id = #{fieldId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getFileds" resultType="java.lang.String">
+        SELECT field_name
+        FROM consult_field_info a
+                 INNER JOIN field_info b ON a.field_id = b.field_id
+        where consult_id = #{consultId}
+    </select>
+    <select id="getConsultOrderTime" resultType="per.dhl.pojo.CalendarInfo">
+        SELECT *
+        FROM calendar_info
+        where consult_id = #{consultId}
+          and calendar_time like concat('%', #{consultTime,jdbcType=VARCHAR}, '%');
+    </select>
+
+    <select id="GetDetailOrderInfo" resultType="per.dhl.qo.OrderTableQo">
+        SELECT *
+        from order_info a
+                 INNER JOIN consult_info b ON a.consult_id = b.consult_id
+                 INNER JOIN field_info c ON a.field_id = c.field_id
+                 INNER JOIN user_info d ON d.user_id = a.user_id
+                 INNER JOIN order_state e ON a.state_id = e.state_id
+                 INNER JOIN admin_info f ON b.admin_id = f.admin_id
+        where a.user_id = #{userId}
+          and a.order_time = #{orderTime}
+    </select>
+    <select id="ViewConsultantServlet" resultType="per.dhl.qo.ConsultInfoQo">
+        SELECT *
+        from order_info a
+                 INNER JOIN consult_info b ON a.consult_id = b.consult_id
+                 INNER JOIN field_info c ON a.field_id = c.field_id
+                 INNER JOIN admin_info d ON d.admin_id = b.admin_id
+                 INNER JOIN order_state e ON a.state_id = e.state_id
+                 INNER JOIN title_info f ON f.title_id = b.title_id
+                 INNER JOIN user_info g ON a.user_id = g.user_id
+        where b.admin_id = #{adminId}
+    </select>
+</mapper>

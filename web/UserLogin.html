@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<link rel="stylesheet" href="css/UserLogin.css">
+<script src="3rd/layer/layer.js"></script>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+</head>
+<body>
+
+<div class="login">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="text-align: center">
+            <h2>欢迎登录心理咨询与诊断平台</h2>
+        </div>
+
+
+        <div class="panel-body ">
+
+            <div class="input-group a">
+                <span class="input-group-addon"><i class="icon icon-user"></i></span>
+                <input id="UnameText" type="text" class="form-control" placeholder="用户名">
+            </div>
+            <div class="input-group a">
+                <span class="input-group-addon"><i class="icon icon-key"></i></span>
+                <input id="UpwdText" type="password" class="form-control" placeholder="密码"/>
+            </div>
+            <div class="input-group a">
+                <span class="input-group-addon"><i class="icon icon-unlock-alt"></i></span>
+                <input type="text" id="captchaCode" class="form-control" placeholder="验证码"
+                       style="float: left; width: 45%"/>
+                <img id="cap" src="CaptchaServlet" onclick="this.src +='?'+Math.random()"
+                     style="float: left; width: 100px "/>
+            </div>
+            <div class="a">
+                <span><button id="loginBtn" class="btn btn-primary " type="button"
+                              style="width: 100px;margin-left: 1% ">登录</button></span>
+                <span><button class="btn" data-toggle="modal" data-target="#myModal" type="button"
+                              style="width: 100px;margin-left: 15%">快速注册</button></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 对话框HTML -->
+<div class="modal fade" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">关闭</span></button>
+                <h2>用户注册</h2>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 b">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-user"></i></span>
+                            <input id="RUAccountText" type="text" class="form-control" placeholder="用户名">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="RUsex">性别:
+                            <label class="radio-inline">
+                                <input type="radio" name="sexRadio" checked value="1"> 男
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sexRadio" value="0"> 女
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 b">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-key"></i></span>
+                            <input id="RUpwdText" type="password" class="form-control" placeholder="密码"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-star"></i></span>
+                            <input id="RUageText" type="text" class="form-control" placeholder="年龄"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 b">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-key"></i></span>
+                            <input id="RUpwdCheckText" type="password" class="form-control" placeholder="确认密码"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-phone"></i></span>
+                            <input id="RUphoneText" type="text" class="form-control" placeholder="手机号"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 b">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-edit"></i></span>
+                            <input id="RUAddressText" type="text" class="form-control" placeholder="通信地址"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="text-align: center;border-top:none">
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                            style="width: 100px;margin-top: 4%">返回
+                    </button>
+                </div>
+                <div class="col-xs-6">
+                    <button id="RlogonBtn" type="button" class="btn btn-primary" data-dismiss="modal"
+                            style="width: 100px;margin-top: 4%">注册
+                    </button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+</body>
+<script src="js/UserLogin.js"></script>
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+</html>

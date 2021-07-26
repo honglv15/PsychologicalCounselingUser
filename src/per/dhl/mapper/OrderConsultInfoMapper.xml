@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.dhl.mapper.OrderConsultInfoMapper">
+
+    <insert id="addOrder">
+        insert into order_info (order_time, consult_id, user_id, field_id, order_problem)
+        values (#{orderTime}, #{consultId},
+                #{userId}, #{fieldId}, #{problemTxt})
+    </insert>
+    <update id="updateOrder">
+        update calendar_info
+        set calendar_state=1
+        where calendar_time = #{orderTime}
+    </update>
+
+    <update id="evaluateConsult">
+        update order_info
+        set comment_content=#{evaluateTxt}
+        where consult_id = #{consultId}
+    </update>
+
+    <update id="Evaluated">
+        update order_info
+        set state_id=5
+        where consult_id = #{consultId}
+    </update>
+
+    <select id="getOrderConsultTable" resultType="per.dhl.qo.OrderConsultQo">
+        SELECT *
+        from order_info a
+                 INNER JOIN consult_info b ON a.consult_id = b.consult_id
+                 INNER JOIN field_info c ON a.field_id = c.field_id
+                 INNER JOIN admin_info d ON d.admin_id = b.admin_id
+                 INNER JOIN order_state e ON a.state_id = e.state_id
+        where user_id = #{userId}
+    </select>
+    <select id="getConsultId" resultType="java.lang.Integer">
+        select consult_id
+        from consult_info
+        where admin_id = #{adminId}
+    </select>
+    <select id="GetConsultInfo" resultType="per.dhl.qo.ConsultInfoQo">
+        SELECT *
+        FROM admin_info a
+                 INNER JOIN consult_info b ON a.admin_id = b.admin_id
+                 INNER JOIN consult_field_info c ON b.consult_id = c.confie_id
+                 INNER JOIN field_info d ON c.field_id = d.field_id
+                 INNER JOIN title_info e ON e.title_id = b.title_id
+        where a.admin_id = #{adminId}
+    </select>
+
+    <select id="getFileds" resultType="java.lang.String">
+        SELECT field_name
+        FROM consult_field_info a
+                 INNER JOIN field_info b ON a.field_id = b.field_id
+        where consult_id = #{consultId}
+    </select>
+
+</mapper>

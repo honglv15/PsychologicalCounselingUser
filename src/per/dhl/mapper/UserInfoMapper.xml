@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper是接口实现xml文件的根标签，里面有一个属性：namespace：命名空间，
+    值就是接口类的包名+类名-->
+<mapper namespace="per.dhl.mapper.UserInfoMapper">
+    <resultMap id="resultmap_userInfo" type="per.dhl.pojo.UserInfo">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_account" jdbcType="VARCHAR" property="userAccount"/>
+        <result column="user_pwd" jdbcType="VARCHAR" property="userPwd"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_age" jdbcType="INTEGER" property="userAge"/>
+        <result column="user_sex" jdbcType="INTEGER" property="userSex"/>
+        <result column="user_phone" jdbcType="INTEGER" property="userPhone"/>
+        <result column="user_address" jdbcType="VARCHAR" property="userAddress"/>
+        <result column="user_status" jdbcType="INTEGER" property="userStatus"/>
+        <result column="user_money" jdbcType="FLOAT" property="userMoney"/>
+        <result column="user_if_del" jdbcType="INTEGER" property="userIfDel"/>
+        <result column="user_ctime" jdbcType="TIMESTAMP" property="userCtime"/>
+        <result column="user_mtime" jdbcType="TIMESTAMP" property="userMtime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id
+        , user_account, user_pwd, user_name,user_age,user_sex, user_phone, user_address, user_status,
+    user_money, user_if_del, user_ctime, user_mtime
+    </sql>
+
+    <insert id="addUserInfo">
+        insert into user_info(user_account, user_pwd,
+                              user_age, user_sex, user_phone,
+                              user_address, user_ctime, user_mtime)
+        values (#{U.userAccount},
+                #{U.userPwd},
+                #{U.userAge},
+                #{U.userSex},
+                #{U.userPhone},
+                #{U.userAddress}, now(), now())
+    </insert>
+
+    <select id="selectUserByUserAccountAndUserPwd" resultType="per.dhl.pojo.UserInfo">
+        select
+        <include refid="Base_Column_List"></include>
+        from user_info
+        <where>
+            <if test="userAccount!=null and userAccount!='' ">
+                and user_account =#{userAccount}
+            </if>
+            <if test="userPwd!=null and userPwd!='' ">
+                and user_pwd=#{userPwd}
+            </if>
+        </where>
+        and user_if_del = 0
+    </select>
+    <select id="initMyAccountTables" resultType="per.dhl.qo.UserIncomeInfoQo">
+        SELECT *
+        FROM user_income_info a
+                 INNER JOIN user_info b ON a.user_id = b.user_id
+                 INNER JOIN consult_info c ON a.consult_id = c.consult_id
+        where a.user_id = #{userId} limit #{limit}
+            , #{offset}
+    </select>
+
+    <select id="countTable" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM user_income_info a
+                 INNER JOIN user_info b ON a.user_id = b.user_id
+                 INNER JOIN consult_info c ON a.consult_id = c.consult_id
+        where a.user_id = #{userId}
+    </select>
+
+    <select id="getUserMoney" resultType="java.lang.Double">
+        select user_money
+        from user_info
+        where user_id = #{userId}
+    </select>
+
+    <update id="ReChangeUserMoney">
+        update user_info
+        set user_money = #{userMoney}
+        where user_id = #{userId}
+    </update>
+
+</mapper>
